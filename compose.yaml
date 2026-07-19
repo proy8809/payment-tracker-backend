@@ -12,6 +12,7 @@ services:
       - payment-tracking-net
 
   nginx:
+    container_name: payment-tracking-nginx
     image: nginx:alpine
     ports:
       - "8080:80"
