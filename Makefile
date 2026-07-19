@@ -6,10 +6,10 @@ up:
 	@if ! docker network inspect $(NETWORK) >/dev/null 2>&1; then \
 		docker network create --driver bridge $(NETWORK); \
 	fi
-	docker compose -p payment-tracking up -d --force-recreate --build
+	docker compose -p payment-tracking-backend up -d --force-recreate --build
 
 down:
-	docker compose -p payment-tracking down -t 0
+	docker compose -p payment-tracking-backend down -t 0
 
 migrate:
 	@if docker compose exec php sh -c '[ -d migrations ] && ls -A migrations/*.php 2>/dev/null' > /dev/null 2>&1; then \
