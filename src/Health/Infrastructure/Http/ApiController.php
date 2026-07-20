@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Health\Infrastructure\Http;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;

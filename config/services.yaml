@@ -21,3 +21,20 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Shared\Infrastructure\Bus\Messenger\CommandBus:
+        arguments:
+            $messageBus: '@messenger.bus.command'
+
+    App\Shared\Infrastructure\Bus\Messenger\QueryBus:
+        arguments:
+            $messageBus: '@messenger.bus.query'
+
+    _instanceof:
+        App\Shared\Application\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: messenger.bus.command }
+
+        App\Shared\Application\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: messenger.bus.query }

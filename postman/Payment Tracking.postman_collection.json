@@ -1,0 +1,52 @@
+{
+	"info": {
+		"name": "Payment Tracking",
+		"description": "Payment Tracking Backend — Symfony 8.1 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		}
+	],
+	"item": [
+		{
+			"name": "Health",
+			"event": [],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/hello",
+					"host": ["{{base_url}}"],
+					"path": ["api", "hello"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"event": [],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"jane@example.com\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"password\": \"s3cret\",\n  \"passwordConfirmation\": \"s3cret\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/user",
+					"host": ["{{base_url}}"],
+					"path": ["user"]
+				}
+			},
+			"response": []
+		}
+	]
+}
