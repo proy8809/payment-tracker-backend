@@ -30,6 +30,10 @@ services:
         arguments:
             $messageBus: '@messenger.bus.query'
 
+    App\Shared\Port\Exception\ApiExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
     _instanceof:
         App\Shared\Application\Command\CommandHandlerInterface:
             tags:

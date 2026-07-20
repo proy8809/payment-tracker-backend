@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Bus\Messenger;
 
+use App\Shared\Application\PaginatedResult;
 use App\Shared\Application\Query\QueryBusInterface;
 use App\Shared\Application\Query\QueryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -17,7 +18,7 @@ class QueryBus implements QueryBusInterface
     ) {
     }
 
-    public function ask(QueryInterface $query): mixed
+    public function ask(QueryInterface $query): PaginatedResult
     {
         $envelope = $this->messageBus->dispatch($query);
         $stamp = $envelope->last(HandledStamp::class);

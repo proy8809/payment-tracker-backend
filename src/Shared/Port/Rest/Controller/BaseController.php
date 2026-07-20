@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Port\Rest;
+namespace App\Shared\Port\Rest\Controller;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Service\Attribute\Required;

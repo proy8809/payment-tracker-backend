@@ -28,12 +28,12 @@
 					"name": "OK",
 					"status": "OK",
 					"code": 200,
-					"body": "{\n  \"message\": \"Hello, World!\"\n}"
+					"body": "{\n  \"data\": {\n    \"message\": \"Hello, World!\"\n  }\n}"
 				}
 			]
 		},
 		{
-			"name": "Register User",
+			"name": "Create User",
 			"description": "Create a new user account",
 			"request": {
 				"method": "POST",
@@ -64,7 +64,7 @@
 					"name": "Validation Error",
 					"status": "Unprocessable Entity",
 					"code": 422,
-					"body": "{\n  \"errors\": {\n    \"email\": \"This value should not be blank.\",\n    \"password\": \"This value is too short. It should have 8 characters or more.\"\n  }\n}"
+					"body": "{\n  \"error\": {\n    \"status\": 422,\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Validation failed\",\n    \"details\": {\n      \"email\": \"This value should not be blank.\"\n    }\n  }\n}"
 				}
 			]
 		},
@@ -89,7 +89,42 @@
 					"name": "OK",
 					"status": "OK",
 					"code": 200,
-					"body": "[\n  {\n    \"id\": 1,\n    \"email\": \"jane@example.com\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Doe\"\n  }\n]"
+					"body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"email\": \"jane@example.com\",\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\"\n    }\n  ],\n  \"meta\": {\n    \"currentPage\": 1,\n    \"perPage\": 10,\n    \"totalItems\": 1,\n    \"totalPages\": 1\n  }\n}"
+				}
+			]
+		{
+			"name": "Delete User",
+			"description": "Delete a user account by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": ["{{base_url}}"],
+					"path": ["users"]
+				}
+			},
+			"response": [
+				{
+					"name": "No Content",
+					"status": "No Content",
+					"code": 204,
+					"body": ""
+				},
+				{
+					"name": "Not Found",
+					"status": "Not Found",
+					"code": 404,
+					"body": "{\n  \"error\": {\n    \"status\": 404,\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"User with ID 1 not found.\"\n  }\n}"
 				}
 			]
 		}

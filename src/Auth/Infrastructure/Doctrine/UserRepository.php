@@ -42,4 +42,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return new Paginator($qb);
     }
+
+    public function deleteUserById(int $id): bool
+    {
+        $result = $this->createQueryBuilder('u')
+            ->delete(User::class, 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
+
+        return $result > 0;
+    }
 }

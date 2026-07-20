@@ -6,6 +6,7 @@ namespace App\Auth\Application\Query\User\GetUsers;
 
 use App\Auth\Domain\User;
 use App\Auth\Domain\UserRepositoryInterface;
+use App\Shared\Application\PaginatedResult;
 use App\Shared\Application\Query\QueryHandlerInterface;
 
 readonly class GetUsersQueryHandler implements QueryHandlerInterface
@@ -15,16 +16,21 @@ readonly class GetUsersQueryHandler implements QueryHandlerInterface
     ) {
     }
 
-    /**
-     * @return UserReadModel[]
-     */
-    public function __invoke(GetUsersQuery $query): array
+    public function __invoke(GetUsersQuery $query): PaginatedResult
     {
-        $paginator = $this->userRepository->findUserList($query->page, $query->limit);
+        $usersPaginator = $this->userRepository->findUserList($query->page, $query->limit);
 
-        return array_map(
-            static fn(User $user) => UserReadModel::fromEntity($user),
-            iterator_to_array($paginator),
+        return new PaginatedResult(
+            data: array_map(
+                static fn (User $user) => UserReadModel::fromEntity($user),
+                iterator_to_array($usersPaginator)
+            ),
+            meta: [
+                'currentPage' => $query->page,
+                'perPage' => $query->limit,
+                'totalItems' => $usersPaginator->count(),
+                'totalPages' => (int) ceil($usersPaginator->count() / $query->limit)
+            ]
         );
     }
 }

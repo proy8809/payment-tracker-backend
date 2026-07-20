@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Port\Rest;
+namespace App\Shared\Port\Rest\Controller;
 
-use App\Shared\Application\Command\CommandBusInterface;
+use App\Shared\Application\Query\QueryBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-abstract class CommandController extends BaseController
+abstract class QueryController extends BaseController
 {
     public function __construct(
-        protected readonly CommandBusInterface $commandBus,
+        protected readonly QueryBusInterface $queryBus,
         private readonly ValidatorInterface $validator
     ) {
         parent::__construct($this->validator);

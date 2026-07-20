@@ -6,23 +6,28 @@ namespace App\Auth\Application\Query\User\GetUsers;
 
 use App\Auth\Domain\User;
 
-class UserReadModel
+readonly class UserReadModel
 {
-    public function __construct(
-        public readonly int $id,
-        public readonly string $email,
-        public readonly string $firstName,
-        public readonly string $lastName,
+    /**
+     * @param array<string> $roles
+     */
+    private function __construct(
+        public int $id,
+        public string $email,
+        public string $firstName,
+        public string $lastName,
+        public array $roles,
     ) {
     }
 
     public static function fromEntity(User $user): self
     {
         return new self(
-            id: $user->getId(),
-            email: $user->getEmail(),
-            firstName: $user->getFirstName(),
-            lastName: $user->getLastName(),
+            $user->getId(),
+            $user->getEmail(),
+            $user->getFirstName(),
+            $user->getLastName(),
+            $user->getRoles()
         );
     }
 }
