@@ -13,7 +13,7 @@
 	"item": [
 		{
 			"name": "Health",
-			"event": [],
+			"description": "Health check endpoint",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -23,11 +23,18 @@
 					"path": ["api", "hello"]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "OK",
+					"status": "OK",
+					"code": 200,
+					"body": "{\n  \"message\": \"Hello, World!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Register User",
-			"event": [],
+			"description": "Create a new user account",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -38,7 +45,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"email\": \"jane@example.com\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"password\": \"s3cret\",\n  \"passwordConfirmation\": \"s3cret\"\n}"
+					"raw": "{\n  \"email\": \"jane@example.com\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"password\": \"s3cret123\",\n  \"passwordConfirmation\": \"s3cret123\"\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/user",
@@ -46,7 +53,20 @@
 					"path": ["user"]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Created",
+					"status": "No Content",
+					"code": 204,
+					"body": ""
+				},
+				{
+					"name": "Validation Error",
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"body": "{\n  \"errors\": {\n    \"email\": \"This value should not be blank.\",\n    \"password\": \"This value is too short. It should have 8 characters or more.\"\n  }\n}"
+				}
+			]
 		}
 	]
 }
