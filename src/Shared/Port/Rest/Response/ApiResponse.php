@@ -40,13 +40,18 @@ class ApiResponse extends JsonResponse
 
     public static function fromApiException(ApiException $exception): self
     {
+        $data = [
+            'message' => $exception->getMessage(),
+            'status' => $exception->status,
+            'errorCode' => $exception->errorCode,
+        ];
+
+        if ($exception->details) {
+            $data['details'] = $exception->details;
+        }
+
         return new self(
-            data: [
-                'message' => $exception->getMessage(),
-                'status' => $exception->status,
-                'errorCode' => $exception->errorCode,
-                'details' => $exception->details
-            ],
+            data: $data,
             status: $exception->status
         );
     }
