@@ -48,9 +48,9 @@
 					"raw": "{\n  \"email\": \"jane@example.com\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"password\": \"s3cret123\",\n  \"passwordConfirmation\": \"s3cret123\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/user",
+					"raw": "{{base_url}}/users",
 					"host": ["{{base_url}}"],
-					"path": ["user"]
+					"path": ["users"]
 				}
 			},
 			"response": [
@@ -65,6 +65,31 @@
 					"status": "Unprocessable Entity",
 					"code": 422,
 					"body": "{\n  \"errors\": {\n    \"email\": \"This value should not be blank.\",\n    \"password\": \"This value is too short. It should have 8 characters or more.\"\n  }\n}"
+				}
+			]
+		},
+		{
+			"name": "List Users",
+			"description": "Get a paginated list of users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users?page=1&limit=10",
+					"host": ["{{base_url}}"],
+					"path": ["users"],
+					"query": [
+						{ "key": "page", "value": "1" },
+						{ "key": "limit", "value": "10" }
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"status": "OK",
+					"code": 200,
+					"body": "[\n  {\n    \"id\": 1,\n    \"email\": \"jane@example.com\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Doe\"\n  }\n]"
 				}
 			]
 		}

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RegisterUserController extends CommandController
 {
-    #[Route('/user', name: 'register_user', methods: ['POST'])]
+    #[Route('/users', name: 'create_user', methods: ['POST'])]
     public function __invoke(
         Request $request
     ): JsonResponse {
