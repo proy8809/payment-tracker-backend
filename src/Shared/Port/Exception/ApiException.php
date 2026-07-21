@@ -13,9 +13,8 @@ class ApiException extends RuntimeException
 {
     public const string INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR';
     public const string UNPROCESSABLE_ENTITY = 'UNPROCESSABLE_ENTITY';
-    public const string CONFLICT = 'CONFLICT';
 
-    private function __construct(
+    public function __construct(
         string $message = 'An exception occurred while processing your request',
         public readonly int $status = Response::HTTP_INTERNAL_SERVER_ERROR,
         public readonly string $errorCode = self::INTERNAL_SERVER_ERROR,
@@ -40,15 +39,6 @@ class ApiException extends RuntimeException
             status: Response::HTTP_UNPROCESSABLE_ENTITY,
             errorCode: self::UNPROCESSABLE_ENTITY,
             details: $details
-        );
-    }
-
-    public static function conflict(string $message): self
-    {
-        return new self(
-            message: $message,
-            status: Response::HTTP_CONFLICT,
-            errorCode: self::CONFLICT,
         );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Port\Rest\Controller;
 
 use App\Shared\Application\Command\CommandBusInterface;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CommandController extends BaseController

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DeleteUserController extends CommandController
 {
-    #[Route('/users', name: 'delete_user', methods: ['DELETE'])]
+    #[Route('/v1/users', name: 'delete_user', methods: ['DELETE'])]
     public function __invoke(Request $request): ApiResponse {
         $command = new DeleteUserCommand($request->getPayload()->getInt('id'));
 

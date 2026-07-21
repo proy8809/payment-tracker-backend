@@ -16,7 +16,8 @@ class ApiResponse extends JsonResponse
     public static function item(mixed $data, int $status = Response::HTTP_OK): self {
         return new self(
             data: [
-                'data' => $data
+                'data' => $data,
+                'status' => $status
             ],
             status: $status
         );
@@ -25,7 +26,11 @@ class ApiResponse extends JsonResponse
     public static function collection(PaginatedResult $paginated, int $status = Response::HTTP_OK): self
     {
         return new self(
-            data: $paginated,
+            data: [
+                'data' => $paginated->data,
+                'meta' => $paginated->meta,
+                'status' => $status
+            ],
             status: $status
         );
     }

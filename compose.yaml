@@ -33,12 +33,17 @@ services:
       MYSQL_PASSWORD: app
     ports:
       - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 5s
       retries: 10
     networks:
       - payment-tracking-net
+
+volumes:
+  db_data:
 
 networks:
   payment-tracking-net:
