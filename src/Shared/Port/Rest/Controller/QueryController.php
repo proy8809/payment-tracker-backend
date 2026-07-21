@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\Shared\Port\Rest\Controller;
 
-use App\Shared\Application\Query\QueryBusInterface;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Messenger\HandleTrait;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-abstract class QueryController extends BaseController
+abstract class QueryController extends AbstractController
 {
-    public function __construct(
-        protected readonly QueryBusInterface $queryBus,
-        private readonly ValidatorInterface $validator
-    ) {
-        parent::__construct($this->validator);
+    use HandleTrait;
+
+    public function __construct(MessageBusInterface $queryBus)
+    {
+        $this->messageBus = $queryBus;
+    }
+
+    public function handleQuery(object $query): mixed
+    {
+        return $this->handle($query);
     }
 }

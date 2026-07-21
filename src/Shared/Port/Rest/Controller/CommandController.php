@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\Shared\Port\Rest\Controller;
 
-use App\Shared\Application\Command\CommandBusInterface;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Messenger\HandleTrait;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-abstract class CommandController extends BaseController
+abstract class CommandController extends AbstractController
 {
-    public function __construct(
-        protected readonly CommandBusInterface $commandBus,
-        private readonly ValidatorInterface $validator
-    ) {
-        parent::__construct($this->validator);
+    use HandleTrait;
+
+    public function __construct(MessageBusInterface $commandBus)
+    {
+        $this->messageBus = $commandBus;
+    }
+
+    protected function handleCommand(object $command): mixed
+    {
+        return $this->handle($command);
     }
 }

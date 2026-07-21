@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\Application\Command\User\RegisterUser;
+namespace App\Auth\Application\Command\User\SignUp;
 
-use App\Shared\Application\Command\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-readonly class RegisterUserCommand implements CommandInterface
+readonly class SignUpCommand
 {
     public function __construct(
         #[Assert\NotBlank(message: "User email can't be blank")]

@@ -8,7 +8,9 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 interface UserRepositoryInterface
 {
-    public function findUserList(int $page, int $limit): Paginator;
+    public function findByEmail(string $email): ?User;
 
-    public function deleteUserById(int $id): bool;
+    public function findPaginated(int $page, int $limit): Paginator;
+
+    public function deleteById(int $id): bool;
 }

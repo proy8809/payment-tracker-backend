@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Auth\Application\Query\User\GetUsers;
 
-use App\Shared\Application\Query\QueryInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-readonly class GetUsersQuery implements QueryInterface
+final readonly class GetUsersQuery
 {
     public function __construct(
-        #[Assert\GreaterThanOrEqual(value: 1, message: 'The value must be greater than 0')]
+        #[Assert\GreaterThan(value: 0, message: "Page must be greater than 0.")]
         public int $page,
-        #[Assert\GreaterThanOrEqual(value: 1, message: 'The value must be greater than 0')]
+        #[Assert\GreaterThan(value: 0, message: "Limit must be greater than 0.")]
         public int $limit
     ) {
     }

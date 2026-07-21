@@ -2,28 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\Application\Command\User\RegisterUser;
+namespace App\Auth\Application\Command\User\SignUp;
 
 use App\Auth\Domain\User;
 use App\Auth\Domain\UserAlreadyCreatedException;
-use App\Auth\Domain\UserRepositoryInterface;
 use App\Auth\Infrastructure\Doctrine\UserRepository;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use App\Shared\Application\CommandHandlerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Throwable;
 
-class RegisterUserCommandHandler implements CommandHandlerInterface
+final readonly class SignUpCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly UserRepository $userRepository,
-        private readonly UserPasswordHasherInterface $passwordHasher,
+        private EntityManagerInterface      $entityManager,
+        private UserRepository              $userRepository,
+        private UserPasswordHasherInterface $passwordHasher,
     ) {
     }
 
-    public function __invoke(RegisterUserCommand $command): void
+    public function __invoke(SignUpCommand $command): void
     {
         $user = $this->userRepository->findOneBy(['email' => $command->email]);
 
@@ -37,7 +34,7 @@ class RegisterUserCommandHandler implements CommandHandlerInterface
         $this->entityManager->flush();
     }
 
-    private function commandToEntity(RegisterUserCommand $command): User
+    private function commandToEntity(SignUpCommand $command): User
     {
         $user = new User();
         $hashedPassword = $this->passwordHasher->hashPassword($user, $command->password);

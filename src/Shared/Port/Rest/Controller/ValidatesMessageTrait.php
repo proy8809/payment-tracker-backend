@@ -7,13 +7,9 @@ namespace App\Shared\Port\Rest\Controller;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
-abstract class BaseController
+trait ValidatesMessageTrait
 {
-    public function __construct(
-        private ValidatorInterface $validator,
-    )
-    {
-    }
+    private ValidatorInterface $validator;
 
     #[Required]
     public function setValidator(ValidatorInterface $validator): void

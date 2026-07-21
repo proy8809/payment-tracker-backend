@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ApiController
 {
-    #[Route('/v1/hello', name: 'api_hello', methods: ['GET'])]
+    #[Route('/hello', name: 'api_hello', methods: ['GET'])]
     public function index(): JsonResponse
     {
         return new JsonResponse(['message' => 'Hello, World!']);

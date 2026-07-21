@@ -23,7 +23,7 @@
 			}
 		},
 		{
-			"name": "Create User",
+			"name": "Sign Up",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -37,9 +37,30 @@
 					"raw": "{\n  \"email\": \"jane@example.com\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"password\": \"s3cret123\",\n  \"passwordConfirmation\": \"s3cret123\"\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/users",
+					"raw": "{{base_url}}/auth/signup",
 					"host": ["{{base_url}}"],
-					"path": ["users"]
+					"path": ["auth", "signup"]
+				}
+			}
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"jane@example.com\",\n  \"password\": \"s3cret123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/signin",
+					"host": ["{{base_url}}"],
+					"path": ["auth", "signin"]
 				}
 			}
 		},
@@ -49,9 +70,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/users?page=1&limit=10",
+					"raw": "{{base_url}}/auth/users?page=1&limit=10",
 					"host": ["{{base_url}}"],
-					"path": ["users"],
+					"path": ["auth", "users"],
 					"query": [
 						{
 							"key": "page",
@@ -69,20 +90,11 @@
 			"name": "Delete User",
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": 1\n}"
-				},
+				"header": [],
 				"url": {
-					"raw": "{{base_url}}/users",
+					"raw": "{{base_url}}/auth/users/1",
 					"host": ["{{base_url}}"],
-					"path": ["users"]
+					"path": ["auth", "users", "1"]
 				}
 			}
 		}

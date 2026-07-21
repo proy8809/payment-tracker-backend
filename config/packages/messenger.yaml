@@ -5,12 +5,10 @@ framework:
             messenger.bus.command:
                 default_middleware: false
                 middleware:
-                    - App\Shared\Infrastructure\Bus\Messenger\ExceptionCatchingMiddleware
                     - handle_message
             messenger.bus.query:
                 default_middleware: false
                 middleware:
-                    - App\Shared\Infrastructure\Bus\Messenger\ExceptionCatchingMiddleware
                     - handle_message
 
         transports:
